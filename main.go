@@ -99,7 +99,7 @@ func HttpRequest(currency string)(output string){
 	// b, err := json.Marshal(resp.Body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = rateData
+	output = rateData["datetime"]
 	return
 }
 
