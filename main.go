@@ -79,16 +79,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 func HttpRequest(currency string)(output string){
 	resp, err := http.Get("https://laraserver.herokuapp.com/rate/"+currency+"")
-	if err != nil {
-		fmt.Println(err)
-	}
-	// body, err := ioutil.ReadAll(resp.Body)
-	// if err != nil {
-		// handle error
-	// }
+	checkErr(err)
+	
+	body, err := ioutil.ReadAll(resp.Body)
+	checkErr(err)
 
 	// fmt.Println(string(body))
-	output = string(resp.Body.Get("cashsell"))
+	output = array(body)['cashsell']
 	return
 }
 
