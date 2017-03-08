@@ -59,14 +59,14 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				input := strings.ToUpper(message.Text)
 				// input := message.Text
 				var output string
-				
-				if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
-					output = sqlConnect(input)
-				}else if input=="HELP"{
-					output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
-				}else {
-					output = HttpRequest(input)
-				}
+				output = HttpRequest(input)
+				// if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
+					// output = sqlConnect(input)
+				// }else if input=="HELP"{
+					// output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
+				// }else {
+					// output = HttpRequest(input)
+				// }
 				// fmt.printf("%q", output)
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
