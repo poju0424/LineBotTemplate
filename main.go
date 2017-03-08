@@ -87,7 +87,7 @@ func HttpRequest(currency string)(output string){
 	b, err := json.Marshal(body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = string(b["cashsell"])
+	output = string(b[0])
 	return
 }
 
