@@ -88,7 +88,7 @@ func HttpRequest(currency string)(output string){
 	}
 
 	// fmt.Println(string(body))
-	output = string(body.cashsell)
+	output = string(body)
 	return
 }
 
