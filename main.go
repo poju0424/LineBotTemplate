@@ -59,7 +59,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				input := strings.ToUpper(message.Text)
 				var output string
 				output = HttpRequest(input)
-				if output == 404 {
+				if output == "404" {
 					previewPath := "https://laraserver.herokuapp.com/black_nail.jpg"
 					originalPath := "https://laraserver.herokuapp.com/black.jpg"
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
