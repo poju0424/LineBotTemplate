@@ -84,10 +84,11 @@ func HttpRequest(currency string)(output string){
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println(err)
+		// handle error
 	}
 
-	output := resp.Body
+	// fmt.Println(string(body))
+	output := string(body)
 	return
 }
 
