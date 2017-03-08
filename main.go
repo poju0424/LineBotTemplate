@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"time"
 	"strings"
-	"reflect"
+	"encoding/json"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -84,10 +84,10 @@ func HttpRequest(currency string)(output string){
 	
 	body, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
-
+	b, err := json.Marshal(body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = string(reflect.TypeOf(body))
+	output = string(b['cashsell'])
 	return
 }
 
