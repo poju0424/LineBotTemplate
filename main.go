@@ -19,6 +19,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"strings"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -54,7 +55,17 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				output := sqlConnect(message.Text)
+				input := strings.ToUpper(message.Text)
+				// input := message.Text
+				var output string
+				
+				if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
+					output = sqlConnect(input)
+				}else if input=="HELP"{
+					output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
+				}else {
+					break
+				}
 				// fmt.printf("%q", output)
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
@@ -65,8 +76,27 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// func HttpRequest(currency string)(output string){
+	// resp, err := http.Get("http://example.com/"+currency+"/")
+	// resp, err := http.NewRequest("GET", "https://laraserver.herokuapp.com/newest/"+currency+"/", nil)
+	// checkErr(err)
+	// defer resp.Close()
+	// for resp.Next(){
+		// err := resp.Scan(&cashbuy, &cashsell, &ratebuy, &ratesell, &datetime)
+		// checkErr(err)
+		// layout := "2006-01-02T15:04:05Z"
+		// t, err := time.Parse(layout, datetime)
+
+		// output = "台銀"+currency+"即時匯率:"+
+					// "\n 現金買入:"+strconv.FormatFloat(cashbuy, 'f', 4, 64)+
+					// "\n 現金賣出:"+strconv.FormatFloat(cashsell, 'f', 4, 64)+
+					// "\n 即期買入:"+strconv.FormatFloat(ratebuy, 'f', 4, 64)+
+					// "\n 即期賣出:"+strconv.FormatFloat(ratesell, 'f', 4, 64)+
+					// "\n 更新時間("+t.Format("2006/01/02-15:04:05")+")"
+	// }
+// }
+
 func sqlConnect(currency string)(output string){
-	// var output string
 	var (
 		cashbuy float64
 		cashsell float64
@@ -77,8 +107,7 @@ func sqlConnect(currency string)(output string){
 	
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	checkErr(err)
-	
-	// rows, err := db.Query("SELECT * FROM $1 ORDER BY id DESC LIMIT 1;", currency)
+
 	rows, err := db.Query("SELECT cashbuy, cashsell, ratebuy, ratesell, datetime FROM bot_"+currency+" ORDER BY id DESC LIMIT 1;")
 	checkErr(err)
 	defer rows.Close()
