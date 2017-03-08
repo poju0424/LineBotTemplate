@@ -79,12 +79,21 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func HttpRequest(currency string)(output string){
+	type rateData struct {
+		id int
+		cashbuy float64
+		cashsell float64
+		ratebuy float64
+		ratesell float64
+		datetime string
+	}
 	resp, err := http.Get("https://laraserver.herokuapp.com/rate/"+currency+"")
 	checkErr(err)
 	
 	body, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
-	var jsonData []Employee
+	
+	var jsonData []rateData
 	err = json.Unmarshal([]byte(body), &jsonData)
 	// b, err := json.Marshal(resp.Body)
 	// fmt.Println(string(body))
