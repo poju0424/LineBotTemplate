@@ -73,7 +73,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func HttpRequest(currency string)(output string){
+// func HttpRequest(currency string)(output string){
 	// resp, err := http.Get("http://example.com/"+currency+"/")
 	// resp, err := http.NewRequest("GET", "https://laraserver.herokuapp.com/newest/"+currency+"/", nil)
 	// checkErr(err)
@@ -91,7 +91,7 @@ func HttpRequest(currency string)(output string){
 					// "\n 即期賣出:"+strconv.FormatFloat(ratesell, 'f', 4, 64)+
 					// "\n 更新時間("+t.Format("2006/01/02-15:04:05")+")"
 	// }
-}
+// }
 
 func sqlConnect(currency string)(output string){
 	var (
