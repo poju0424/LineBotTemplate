@@ -107,10 +107,12 @@ func sqlConnect(currency string)(output string){
 	
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	checkErr(err)
-
+	defer db.Close()
+	
 	rows, err := db.Query("SELECT cashbuy, cashsell, ratebuy, ratesell, datetime FROM bot_"+currency+" ORDER BY id DESC LIMIT 1;")
 	checkErr(err)
 	defer rows.Close()
+	
 	for rows.Next(){
 		err := rows.Scan(&cashbuy, &cashsell, &ratebuy, &ratesell, &datetime)
 		checkErr(err)
