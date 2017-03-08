@@ -64,6 +64,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					output = sqlConnect(input)
 				}else if input=="HELP"{
 					output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
+				}else if input=="TEST"{
+					output = HttpRequest(input)
 				}else {
 					break
 				}
