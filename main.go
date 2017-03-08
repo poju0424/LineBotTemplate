@@ -80,7 +80,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func HttpRequest(currency string)(output string){
-	resp, err := http.Get("https://laraserver.herokuapp.com/rate/我想換日幣")
+	resp, err := http.Get("https://laraserver.herokuapp.com/rate/"+currency+"")
 	if err != nil {
 		fmt.Println(err)
 	}
