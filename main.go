@@ -54,14 +54,16 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				// input := strings.ToLower(message.Text)
-				input := message.Text
+				input := strings.ToUpper(message.Text)
+				// input := message.Text
 				var output string
 				
-				if input=="jpy" || input=="usd" || input=="eur" || input=="cny" || input=="hkd" {
+				if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
 					output = sqlConnect(message.Text)
-				}else{
-					output = "目前只支援以幣別代碼查詢 /n 如: USD, JPY, HKD, EUR, CNY"
+				}else if input=="HELP"{
+					output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
+				}else {
+					break
 				}
 				// fmt.printf("%q", output)
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
