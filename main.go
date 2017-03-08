@@ -75,22 +75,22 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 func HttpRequest(currency string)(output string){
 	// resp, err := http.Get("http://example.com/"+currency+"/")
-	resp, err := http.NewRequest("GET", "https://laraserver.herokuapp.com/newest/"+currency+"/", nil)
-	checkErr(err)
-	defer resp.Close()
-	for resp.Next(){
-		err := resp.Scan(&cashbuy, &cashsell, &ratebuy, &ratesell, &datetime)
-		checkErr(err)
-		layout := "2006-01-02T15:04:05Z"
-		t, err := time.Parse(layout, datetime)
+	// resp, err := http.NewRequest("GET", "https://laraserver.herokuapp.com/newest/"+currency+"/", nil)
+	// checkErr(err)
+	// defer resp.Close()
+	// for resp.Next(){
+		// err := resp.Scan(&cashbuy, &cashsell, &ratebuy, &ratesell, &datetime)
+		// checkErr(err)
+		// layout := "2006-01-02T15:04:05Z"
+		// t, err := time.Parse(layout, datetime)
 
-		output = "台銀"+currency+"即時匯率:"+
-					"\n 現金買入:"+strconv.FormatFloat(cashbuy, 'f', 4, 64)+
-					"\n 現金賣出:"+strconv.FormatFloat(cashsell, 'f', 4, 64)+
-					"\n 即期買入:"+strconv.FormatFloat(ratebuy, 'f', 4, 64)+
-					"\n 即期賣出:"+strconv.FormatFloat(ratesell, 'f', 4, 64)+
-					"\n 更新時間("+t.Format("2006/01/02-15:04:05")+")"
-	}
+		// output = "台銀"+currency+"即時匯率:"+
+					// "\n 現金買入:"+strconv.FormatFloat(cashbuy, 'f', 4, 64)+
+					// "\n 現金賣出:"+strconv.FormatFloat(cashsell, 'f', 4, 64)+
+					// "\n 即期買入:"+strconv.FormatFloat(ratebuy, 'f', 4, 64)+
+					// "\n 即期賣出:"+strconv.FormatFloat(ratesell, 'f', 4, 64)+
+					// "\n 更新時間("+t.Format("2006/01/02-15:04:05")+")"
+	// }
 }
 
 func sqlConnect(currency string)(output string){
