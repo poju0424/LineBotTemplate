@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	// "io/ioutil"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"time"
@@ -85,7 +85,7 @@ func HttpRequest(currency string)(output string){
 	checkErr(err)
 
 	// fmt.Println(string(body))
-	output = array(body)["cashsell"]
+	output = string(body["cashsell"])
 	return
 }
 
