@@ -57,21 +57,29 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				input := strings.ToUpper(message.Text)
-				// input := message.Text
 				var output string
 				output = HttpRequest(input)
-				// if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
-					// output = sqlConnect(input)
-				// }else if input=="HELP"{
+				if output == 404 {
+					previewPath = "https://laraserver.herokuapp.com/black_nail.jpg"
+					originalPath = "https://laraserver.herokuapp.com/black.jpg"
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+						log.Print(err)
+					}
+				}else{
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
+						log.Print(err)
+					}
+				}
+				// else if input=="HELP"{
 					// output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
 				// }else {
 					// output = HttpRequest(input)
 				// }
 				// fmt.printf("%q", output)
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
-					log.Print(err)
-				}
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
+					// log.Print(err)
+				// }
 			}
 		}
 	}
