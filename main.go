@@ -60,7 +60,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				var output string
 				
 				if input=="JPY" || input=="USD" || input=="EUR" || input=="CNY" || input=="HKD" {
-					output = sqlConnect(message.Text)
+					output = sqlConnect(input)
 				}else if input=="HELP"{
 					output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
 				}else {
