@@ -98,7 +98,8 @@ func HttpRequest(currency string)(output string){
 	// b, err := json.Marshal(resp.Body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = string(jsonData["cashbuy"])
+	// output = string(jsonData["cashbuy"])
+	output = strconv.FormatFloat(jsonData["cashbuy"], 'f', 4, 64)
 	return
 }
 
