@@ -84,10 +84,10 @@ func HttpRequest(currency string)(output string){
 	
 	// body, err := ioutil.ReadAll(resp.Body)
 	// checkErr(err)
-	b, err := json.Marshal(resp.Body)
+	// b, err := json.Marshal(resp.Body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = string(b)
+	output = string(json.NewDecoder(resp.Body))
 	return
 }
 
