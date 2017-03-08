@@ -87,7 +87,7 @@ func HttpRequest(currency string)(output string){
 
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
-	output = reflect.TypeOf(body)
+	output = string(reflect.TypeOf(body))
 	return
 }
 
