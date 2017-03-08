@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"io/ioutil"
+	// "io/ioutil"
 	"os"
 	"strconv"
 	"time"
@@ -82,9 +82,9 @@ func HttpRequest(currency string)(output string){
 	resp, err := http.Get("https://laraserver.herokuapp.com/rate/"+currency+"")
 	checkErr(err)
 	
-	body, err := ioutil.ReadAll(resp.Body)
-	checkErr(err)
-	b, err := json.Marshal(body)
+	// body, err := ioutil.ReadAll(resp.Body)
+	// checkErr(err)
+	b, err := json.Marshal(resp.Body)
 	// fmt.Println(string(body))
 	// output = string(body["cashsell"])
 	output = string(b[0])
