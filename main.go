@@ -21,6 +21,7 @@ import (
 	"strconv"
 	"time"
 	"strings"
+	"reflect"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -85,7 +86,8 @@ func HttpRequest(currency string)(output string){
 	checkErr(err)
 
 	// fmt.Println(string(body))
-	output = string(body["cashsell"])
+	// output = string(body["cashsell"])
+	output = reflect.TypeOf(body)+reflect.TypeOf(resp)
 	return
 }
 
