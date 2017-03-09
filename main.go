@@ -57,32 +57,44 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				input := strings.ToUpper(message.Text)
-				var output string
-				output = HttpRequest(input)
-				if output == "404" {
-					previewPath := "https://laraserver.herokuapp.com/black.jpg"
-					originalPath := "https://laraserver.herokuapp.com/black.jpg"
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+				if strings.Index(message.Text, "我要去") == 0 {
+					title address latitude longitude := QueryLocation(message.Text)
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
 						log.Print(err)
 					}
 				}else{
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
-						log.Print(err)
+					var output string
+					output = HttpRequest(input)
+					if output == "404" {
+						previewPath := "https://laraserver.herokuapp.com/black.jpg"
+						originalPath := "https://laraserver.herokuapp.com/black.jpg"
+						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+							log.Print(err)
+						}
+					}else{
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
+							log.Print(err)
+						}
 					}
 				}
-				// else if input=="HELP"{
-					// output = "目前只支援以幣別代碼查詢 \n 如: USD, JPY, HKD, EUR, CNY"
-				// }else {
-					// output = HttpRequest(input)
-				// }
-				// fmt.printf("%q", output)
-				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
-				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
-					// log.Print(err)
-				// }
 			}
 		}
 	}
+}
+
+func QueryLocation(name string)(title, address string, latitude, longitude float64){
+	resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
+	checkErr(err)
+	
+	body, err := ioutil.ReadAll(resp.Body)
+	checkErr(err)
+	
+	title = body["title"] 
+	address = body["address"] 
+	latitude = body["latitude"] 
+	longitude = body["longitude"] 
+	return
 }
 
 func HttpRequest(currency string)(output string){
