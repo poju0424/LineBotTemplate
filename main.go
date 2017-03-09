@@ -57,12 +57,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				input := strings.ToUpper(message.Text)
-				if strings.Index(input, "我要去") == 0 {
-					title, address, latitude, longitude := QueryLocation(message.Text)
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
-						log.Print(err)
-					}
-				}else{
+				// if strings.Index(input, "我要去") == 0 {
+					// title, address, latitude, longitude := QueryLocation(message.Text)
+					// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
+						// log.Print(err)
+					// }
+				// }else{
 					var output string
 					output = HttpRequest(input)
 					if output == "404" {
@@ -77,7 +77,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							log.Print(err)
 						}
 					}
-				}
+				// }
 			}
 		}
 	}
