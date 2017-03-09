@@ -90,11 +90,17 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	body, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
-	title = body[0] 
-	address = body[1] 
-	latitude = body[2] 
-	longitude = body[3] 
+	// title = body[0] 
+	// address = body[1] 
+	// latitude = body[2] 
+	// longitude = body[3] 
 	// var m map[string] = body
+	s := make([]string,len(body))
+	title = s[0]
+	address = s[1]
+	latitude = strconv.ParseFloat(s[2], 64)
+	longitude = strconv.ParseFloat(s[3], 64)
+	
 	return
 }
 
