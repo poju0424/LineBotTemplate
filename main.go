@@ -105,8 +105,8 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	address = s[1]
 	latitude,err = strconv.ParseFloat(s[2], 64)
 	checkErr(err)
-	longitude = strconv.ParseFloat(s[3], 64)
-	
+	longitude, err = strconv.ParseFloat(s[3], 64)
+	checkErr(err)
 	return
 }
 
