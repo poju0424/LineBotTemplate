@@ -89,15 +89,15 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	
 	
 	
-	type location struct {
-		title string
-		address  string
-		latitude  float64
-		longitude  float64
-	}
-	var loc location
+	// type location struct {
+		// title string
+		// address  string
+		// latitude  float64
+		// longitude  float64
+	// }
+	// var loc location
 	body, err := ioutil.ReadAll(resp.Body)
-	loc, err := ioutil.ReadAll(resp.Body)
+	// loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
 	s := make([]string,len(body))
