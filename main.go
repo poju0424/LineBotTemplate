@@ -58,7 +58,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			case *linebot.TextMessage:
 				input := strings.ToUpper(message.Text)
 				if strings.Index(message.Text, "我要去") == 0 {
-					title address latitude longitude := QueryLocation(message.Text)
+					title, address, latitude, longitude := QueryLocation(message.Text)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
 						log.Print(err)
 					}
