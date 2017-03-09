@@ -95,9 +95,9 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 		latitude  float64
 		longitude  float64
 	}
-	
+	var loc location
 	body, err := ioutil.ReadAll(resp.Body)
-	location, err := ioutil.ReadAll(resp.Body)
+	loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
 	s := make([]string,len(body))
