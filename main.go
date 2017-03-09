@@ -87,18 +87,24 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
 	checkErr(err)
 	
+	
+	
+	type location struct {
+		title string
+		address  string
+		latitude  float64
+		longitude  float64
+	}
+	
 	body, err := ioutil.ReadAll(resp.Body)
+	location, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
-	// title = body[0] 
-	// address = body[1] 
-	// latitude = body[2] 
-	// longitude = body[3] 
-	// var m map[string] = body
 	s := make([]string,len(body))
 	title = s[0]
 	address = s[1]
-	latitude = strconv.ParseFloat(s[2], 64)
+	latitude,err = strconv.ParseFloat(s[2], 64)
+	checkErr(err)
 	longitude = strconv.ParseFloat(s[3], 64)
 	
 	return
