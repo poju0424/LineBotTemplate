@@ -94,7 +94,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// address = body["address"] 
 	// latitude = body["latitude"] 
 	// longitude = body["longitude"] 
-	var m map = body
+	var m map[string] = body
 	return
 }
 
