@@ -42,10 +42,10 @@ func main() {
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	events, err := bot.ParseRequest(r)
-	log.Print(err)
+	
 	if err != nil {
+		log.Print(err)
 		if err == linebot.ErrInvalidSignature {
-			
 			w.WriteHeader(400)
 		} else {
 			w.WriteHeader(500)
@@ -87,16 +87,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 func QueryLocation(name string)(title, address string, latitude, longitude float64){
 	resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
 	checkErr(err)
-	
-	
-	
-	// type location struct {
-		// title string
-		// address  string
-		// latitude  float64
-		// longitude  float64
-	// }
-	// var loc location
 	body, err := ioutil.ReadAll(resp.Body)
 	// loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
