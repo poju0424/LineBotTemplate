@@ -42,10 +42,10 @@ func main() {
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	events, err := bot.ParseRequest(r)
-	
+	log.Print(err)
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
-			log.Print(err)
+			
 			w.WriteHeader(400)
 		} else {
 			w.WriteHeader(500)
