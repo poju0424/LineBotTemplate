@@ -91,7 +91,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	body, err := ioutil.ReadAll(resp.Body)
 	// loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
-	
+	log.Print(body)
 	type Location struct {
 		title   string
 		address string
