@@ -102,6 +102,8 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	reader := bytes.NewReader(body)
 	// len := reader.Len()
 	len := io.MultiReader(reader)
+	str := string(body[:])
+	log.Print(str)
 	log.Print(body)
 	log.Print(len)
 	
