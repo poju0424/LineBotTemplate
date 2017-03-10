@@ -113,7 +113,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	}
 	
 	location := new(Location) // or &Foo{}
-    getJson("http://example.com", location)
+    getJson("https://laraserver.herokuapp.com/geo/"+name+"", location)
     log.Print(location)
 	
 	// var location []Location
