@@ -44,7 +44,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	events, err := bot.ParseRequest(r)
 	
 	if err != nil {
-		log.Print(err)
 		if err == linebot.ErrInvalidSignature {
 			w.WriteHeader(400)
 		} else {
@@ -64,20 +63,21 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						// log.Print(err)
 					// }
 				// }else{
-					var output string
-					output = HttpRequest(input)
-					if output == "404" {
-						previewPath := "https://laraserver.herokuapp.com/black.jpg"
-						originalPath := "https://laraserver.herokuapp.com/black.jpg"
-						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
-							log.Print(err)
-						}
-					}else{
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
-							log.Print(err)
-						}
+				var output string
+				output = HttpRequest(input)
+				if output == "404" {
+					previewPath := "https://laraserver.herokuapp.com/black.jpg"
+					originalPath := "https://laraserver.herokuapp.com/black.jpg"
+					// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+						log.Print(err)
+						log.print(123)
 					}
+				}else{
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
+						log.Print(err)
+					}
+				}
 				// }
 			}
 		}
