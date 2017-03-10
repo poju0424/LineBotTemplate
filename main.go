@@ -95,10 +95,10 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// s := make([]string,len(body))
 	str := string(body[:])
 	arr := strings.Split(str, ",")
-	log.Print(arr[0])
-	log.Print(arr[1])
-	log.Print(arr[2])
-	log.Print(arr[3])
+	log.Print(str[0])
+	log.Print(str[1])
+	log.Print(str[2])
+	log.Print(str[3])
 	
 	title = arr[0]
 	address = arr[1]
