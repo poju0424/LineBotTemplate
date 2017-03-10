@@ -107,7 +107,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// log.Print(str[2])
 	// log.Print(str[3])
 	json.Unmarshal(body, &location)
-	
+	log.Print(location)
 	title = location[0].title
 	address = location[0].address
 	latitude = location[0].latitude
