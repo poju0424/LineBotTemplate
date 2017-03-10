@@ -22,6 +22,7 @@ import (
 	"time"
 	"strings"
 	"bytes"
+	"io"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -99,7 +100,8 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	latitude,err = strconv.ParseFloat(s[2], 64)
 	
 	reader := bytes.NewReader(body)
-	len := reader.Len()
+	// len := reader.Len()
+	len := io.MultiReader(reader)
 	log.Print(body)
 	log.Print(len)
 	
