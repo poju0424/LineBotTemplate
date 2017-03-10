@@ -70,7 +70,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if output == "404" {
 						previewPath := "https://laraserver.herokuapp.com/black.jpg"
 						originalPath := "https://laraserver.herokuapp.com/black.jpg"
-						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
 						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
 							log.Print(err)
 						}
@@ -106,7 +105,6 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	
 	location := new(Location)
     getJson("https://laraserver.herokuapp.com/geo/"+name+"", location)
-    log.Print(location)
 	
 	title = location.Title
 	address = location.Address
