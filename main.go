@@ -96,7 +96,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	title = s[0]
 	address = s[1]
 	latitude,err = strconv.ParseFloat(s[2], 64)
-	log.Print(s[1])
+	log.Print(len(body))
 	log.Print(s[0])
 	checkErr(err)
 	longitude, err = strconv.ParseFloat(s[3], 64)
@@ -151,5 +151,6 @@ func sqlConnect(currency string)(output string){
 func checkErr(err error) {
     if err != nil {
         log.Fatal(err)
+		log.Print(err)
     }
 }
