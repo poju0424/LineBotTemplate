@@ -59,6 +59,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				input := strings.ToUpper(message.Text)
 				if strings.Index(input, "我要去") == 0 {
 					substring := message.Text[3:len(message.Text)]
+					log.Print(substring)
 					title, address, latitude, longitude := QueryLocation(substring)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
 						log.Print(err)
@@ -96,6 +97,8 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	title = s[0]
 	address = s[1]
 	latitude,err = strconv.ParseFloat(s[2], 64)
+	log.Print(s[2])
+	log.Print(s[3])
 	checkErr(err)
 	longitude, err = strconv.ParseFloat(s[3], 64)
 	checkErr(err)
