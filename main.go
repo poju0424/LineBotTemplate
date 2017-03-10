@@ -97,45 +97,23 @@ func getJson(url string, target interface{}) error {
 }
 
 func QueryLocation(name string)(title, address string, latitude, longitude float64){
-	// resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
-	// checkErr(err)
-	// body, err := ioutil.ReadAll(resp.Body)
-	// defer resp.Body.Close()
-	// loc, err := ioutil.ReadAll(resp.Body)
-	// json.NewDecoder(r.Body).Decode(target)
-	// checkErr(err)
-	
+
 	type Location struct {
-		Title   string
+		title   string
 		Address string
 		Latitude float64
 		Longitude float64
 	}
 	
-	location := new(Location) // or &Foo{}
+	location := new(Location)
     getJson("https://laraserver.herokuapp.com/geo/"+name+"", location)
     log.Print(location)
 	
-	// var location []Location
-	// s := make([]string,len(body))
-	// str := string(body[:])
-	// arr := strings.Split(str, ",")
-	// log.Print(str[0])
-	// log.Print(str[1])
-	// log.Print(str[2])
-	// log.Print(str[3])
-	
-	// json.Unmarshal(body, &location)
-	// log.Print(location)
 	title = location.Title
 	address = location.Address
 	latitude = location.Latitude
 	longitude = location.Longitude
 	
-	// latitude,err = strconv.ParseFloat(arr[2], 64)
-	// checkErr(err)
-	// longitude, err = strconv.ParseFloat(arr[3], 64)
-	// checkErr(err)
 	return
 }
 
