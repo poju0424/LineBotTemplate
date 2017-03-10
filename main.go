@@ -106,10 +106,10 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// checkErr(err)
 	// log.Print(body)
 	type Location struct {
-		title   string
-		address string
-		latitude float64
-		longitude float64
+		Title   string
+		Address string
+		Latitude float64
+		Longitude float64
 	}
 	
 	location := new(Location) // or &Foo{}
