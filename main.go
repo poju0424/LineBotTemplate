@@ -57,28 +57,29 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				input := strings.ToUpper(message.Text)
-				// if strings.Index(input, "我要去") == 0 {
-					// title, address, latitude, longitude := QueryLocation(message.Text)
-					// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
-						// log.Print(err)
-					// }
-				// }else{
-				var output string
-				output = HttpRequest(input)
-				if output == "404" {
-					previewPath := "https://laraserver.herokuapp.com/black.jpg"
-					originalPath := "https://laraserver.herokuapp.com/black.jpg"
-					// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+				if strings.Index(input, "我要去") == 0 {
+					substring := message.Text[3:len(message.Text)]
+					title, address, latitude, longitude := QueryLocation(substring)
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
 						log.Print(err)
-						log.Print(123)
 					}
 				}else{
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
-						log.Print(err)
+					var output string
+					output = HttpRequest(input)
+					if output == "404" {
+						previewPath := "https://laraserver.herokuapp.com/black.jpg"
+						originalPath := "https://laraserver.herokuapp.com/black.jpg"
+						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+							log.Print(err)
+							log.Print(123)
+						}
+					}else{
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
+							log.Print(err)
+						}
 					}
 				}
-				// }
 			}
 		}
 	}
