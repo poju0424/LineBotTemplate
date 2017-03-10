@@ -114,7 +114,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	
 	location := new(Location) // or &Foo{}
     getJson("http://example.com", location)
-    log.Print(location.title)
+    log.Print(location)
 	
 	// var location []Location
 	// s := make([]string,len(body))
