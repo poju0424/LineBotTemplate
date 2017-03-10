@@ -85,20 +85,38 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+var myClient = &http.Client{Timeout: 10 * time.Second}
+func getJson(url string, target interface{}) error {
+    r, err := myClient.Get(url)
+    if err != nil {
+        return err
+    }
+    defer r.Body.Close()
+
+    return json.NewDecoder(r.Body).Decode(target)
+}
+
 func QueryLocation(name string)(title, address string, latitude, longitude float64){
-	resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
-	checkErr(err)
-	body, err := ioutil.ReadAll(resp.Body)
+	// resp, err := http.Get("https://laraserver.herokuapp.com/geo/"+name+"")
+	// checkErr(err)
+	// body, err := ioutil.ReadAll(resp.Body)
+	// defer resp.Body.Close()
 	// loc, err := ioutil.ReadAll(resp.Body)
-	checkErr(err)
-	log.Print(body)
+	// json.NewDecoder(r.Body).Decode(target)
+	// checkErr(err)
+	// log.Print(body)
 	type Location struct {
 		title   string
 		address string
 		latitude float64
 		longitude float64
 	}
-	var location []Location
+	
+	location := new(Location) // or &Foo{}
+    getJson("http://example.com", location)
+    println(location.title)
+	
+	// var location []Location
 	// s := make([]string,len(body))
 	// str := string(body[:])
 	// arr := strings.Split(str, ",")
@@ -106,12 +124,14 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// log.Print(str[1])
 	// log.Print(str[2])
 	// log.Print(str[3])
-	json.Unmarshal(body, &location)
-	log.Print(location)
-	title = location[0].title
-	address = location[0].address
-	latitude = location[0].latitude
-	longitude = location[0].longitude
+	
+	// json.Unmarshal(body, &location)
+	// log.Print(location)
+	// title = location[0].title
+	// address = location[0].address
+	// latitude = location[0].latitude
+	// longitude = location[0].longitude
+	
 	// latitude,err = strconv.ParseFloat(arr[2], 64)
 	// checkErr(err)
 	// longitude, err = strconv.ParseFloat(arr[3], 64)
