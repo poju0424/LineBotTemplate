@@ -21,8 +21,6 @@ import (
 	"strconv"
 	"time"
 	"strings"
-	"bytes"
-	"io"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -94,21 +92,23 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
-	s := make([]string,len(body))
-	title = s[0]
-	address = s[1]
-	latitude,err = strconv.ParseFloat(s[2], 64)
-	
-	reader := bytes.NewReader(body)
-	// len := reader.Len()
-	len := io.MultiReader(reader)
+	// s := make([]string,len(body))
 	str := string(body[:])
-	log.Print(str)
-	log.Print(body)
-	log.Print(len)
+	arr := strings.Split(str, ",")
+	log.Print(arr[0])
+	log.Print(arr[1])
+	log.Print(arr[2])
+	log.Print(arr[3])
 	
+	title = arr[0]
+	address = arr[1]
+	latitude,err = strconv.ParseFloat(arr[2], 64)
+	
+	
+	
+
 	checkErr(err)
-	longitude, err = strconv.ParseFloat(s[3], 64)
+	longitude, err = strconv.ParseFloat(arr[3], 64)
 	checkErr(err)
 	return
 }
