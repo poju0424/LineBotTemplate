@@ -92,7 +92,7 @@ func getJson(url string, target interface{}) error {
         return err
     }
     defer r.Body.Close()
-
+	log.Print(r.Body)
     return json.NewDecoder(r.Body).Decode(target)
 }
 
@@ -104,7 +104,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// loc, err := ioutil.ReadAll(resp.Body)
 	// json.NewDecoder(r.Body).Decode(target)
 	// checkErr(err)
-	// log.Print(body)
+	
 	type Location struct {
 		Title   string
 		Address string
@@ -114,7 +114,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	
 	location := new(Location) // or &Foo{}
     getJson("http://example.com", location)
-    log.Print(location.Title)
+    log.Print(location)
 	
 	// var location []Location
 	// s := make([]string,len(body))
