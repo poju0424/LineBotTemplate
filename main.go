@@ -109,7 +109,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
     getJson("https://laraserver.herokuapp.com/geo/"+name+"", location)
     log.Print(location)
 	
-	title = location.Title
+	title = location.title
 	address = location.Address
 	latitude = location.Latitude
 	longitude = location.Longitude
