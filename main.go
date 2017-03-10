@@ -92,11 +92,10 @@ func getJson(url string, target interface{}) error {
         return err
     }
     defer r.Body.Close()
-	log.Print(r.Body)
     return json.NewDecoder(r.Body).Decode(target)
 }
 
-func QueryLocation(name string)(title, address string, latitude, longitude float64){
+func QueryLocation(name string)(title1, address string, latitude, longitude float64){
 
 	type Location struct {
 		title   string
@@ -109,7 +108,7 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
     getJson("https://laraserver.herokuapp.com/geo/"+name+"", location)
     log.Print(location)
 	
-	title = location.title
+	title1 = location.title
 	address = location.Address
 	latitude = location.Latitude
 	longitude = location.Longitude
