@@ -21,6 +21,7 @@ import (
 	"strconv"
 	"time"
 	"strings"
+	"encoding/json"
 	"database/sql"
 	_ "github.com/lib/pq"
 	
@@ -59,7 +60,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				input := strings.ToUpper(message.Text)
 				if strings.Index(input, "我要去") == 0 {
 					substring := message.Text[9:len(message.Text)]
-					log.Print(substring)
 					title, address, latitude, longitude := QueryLocation(substring)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewLocationMessage(title, address, latitude, longitude)).Do(); err != nil {
 						log.Print(err)
@@ -92,24 +92,30 @@ func QueryLocation(name string)(title, address string, latitude, longitude float
 	// loc, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
 	
+	type Location struct {
+		title   string
+		address string
+		latitude float64
+		longitude float64
+	}
+	var location []Location
 	// s := make([]string,len(body))
-	str := string(body[:])
-	arr := strings.Split(str, ",")
-	log.Print(str[0])
-	log.Print(str[1])
-	log.Print(str[2])
-	log.Print(str[3])
+	// str := string(body[:])
+	// arr := strings.Split(str, ",")
+	// log.Print(str[0])
+	// log.Print(str[1])
+	// log.Print(str[2])
+	// log.Print(str[3])
+	json.Unmarshal(body, &location)
 	
-	title = arr[0]
-	address = arr[1]
-	latitude,err = strconv.ParseFloat(arr[2], 64)
-	
-	
-	
-
-	checkErr(err)
-	longitude, err = strconv.ParseFloat(arr[3], 64)
-	checkErr(err)
+	title = location[0].title
+	address = location[0].address
+	latitude = location[0].latitude
+	longitude = location[0].longitude
+	// latitude,err = strconv.ParseFloat(arr[2], 64)
+	// checkErr(err)
+	// longitude, err = strconv.ParseFloat(arr[3], 64)
+	// checkErr(err)
 	return
 }
 
