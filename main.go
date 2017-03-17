@@ -68,11 +68,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					var output string
 					output = HttpRequest(input)
 					if output == "404" {
-						previewPath := "https://laraserver.herokuapp.com/black.jpg"
-						originalPath := "https://laraserver.herokuapp.com/black.jpg"
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
-							log.Print(err)
-						}
+						// previewPath := "https://laraserver.herokuapp.com/black.jpg"
+						// originalPath := "https://laraserver.herokuapp.com/black.jpg"
+						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(originalPath, previewPath)).Do(); err != nil {
+							// log.Print(err)
+						// }
 					}else{
 						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(output)).Do(); err != nil {
 							log.Print(err)
