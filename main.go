@@ -25,13 +25,19 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	
-
+	"github.com/newrelic/go-agent"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 var bot *linebot.Client
 
 func main() {
+	config := newrelic.NewConfig("pojulinebot", "1be0f831b0e13a5ff5bcf4cbe4822d2ea6926702")
+	app, err := newrelic.NewApplication(config)
+	http.HandleFunc(newrelic.WrapHandleFunc(app, "/users", usersHandler)
+	txn := app.StartTransaction("myTxn", optionalResponseWriter, optionalRequest)
+	defer txn.End()
+	
 	var err error
 	bot, err = linebot.New(os.Getenv("ChannelSecret"), os.Getenv("ChannelAccessToken"))
 	log.Println("Bot:", bot, " err:", err)
