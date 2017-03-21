@@ -34,7 +34,7 @@ var bot *linebot.Client
 func main() {
 	config := newrelic.NewConfig("pojulinebot", "1be0f831b0e13a5ff5bcf4cbe4822d2ea6926702")
 	app, errr := newrelic.NewApplication(config)
-	http.HandleFunc(newrelic.WrapHandleFunc(app, "/users", usersHandler)
+	http.HandleFunc(newrelic.WrapHandleFunc(app, "/users", usersHandler))
 	txn := app.StartTransaction("myTxn", optionalResponseWriter, optionalRequest)
 	defer txn.End()
 	
